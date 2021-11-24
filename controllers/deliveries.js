@@ -27,11 +27,13 @@ const postDelivery = async (req, res) => {
         const {phone_number} = req.body;
         const {detail} = req.body;
         const {address} = req.body;
+        const {receiving_time} = req.body;
 
         const newDelivery = new Delivery({
             phone_number: phone_number,
             detail: detail,
-            address: address
+            address: address,
+            receiving_time: receiving_time
         });
 
         const savedDelivery = await newDelivery.save();

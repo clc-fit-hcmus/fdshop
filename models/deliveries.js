@@ -15,6 +15,11 @@ const Delivery = new mongoose.Schema({
     address: {
         type: String,
         required: true
+    },
+
+    receiving_time: {
+        type: Date,
+        default: Date.now
     }
 });
 
