@@ -2,6 +2,11 @@
   "name": "fdshop",
   "version": "0.0.0",
   "private": true,
+  "events": {
+    "restart": "kill-port 3000",
+    "crash": "kill-port 3000"
+  },
+  "delay": "1500",
   "scripts": {
     "start": "node ./bin/www",
     "start-dev": "nodemon ./bin/www"
@@ -19,10 +24,5 @@
   "devDependencies": {
     "kill-port": "^1.6.1",
     "nodemon": "^2.0.15"
-  },
-  "events": {
-    "restart": "kill-port 3000",
-    "crash": "kill-port 3000"
-  },
-  "delay": "1500"
+  }
 }
