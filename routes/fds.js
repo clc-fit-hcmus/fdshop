@@ -1,8 +1,10 @@
 const express = require('express');
-const {postFDs} = require("../controllers/fds");
+const {postFD, getFDs, getFD} = require("../controllers/fds");
 
 const router = express.Router();
 
-router.post('/add', postFDs);
+router.get('/', getFDs);
+router.get('/:fdname', getFD);
+router.post('/add', postFD);
 
 module.exports = router;

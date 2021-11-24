@@ -8,7 +8,6 @@ const FD = new mongoose.Schema({
 
     release_date: {
         type: Date,
-        required: true,
         default: Date.now
     },
 
@@ -36,7 +35,14 @@ const FD = new mongoose.Schema({
     },
 
     image: {
-
+        data: {
+            type: Buffer,
+            required: true
+        },
+        content_type: {
+            type: String,
+            required: true
+        }
     }
 });
 

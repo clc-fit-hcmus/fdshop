@@ -12,6 +12,9 @@ const usersRouter = require('./routes/users');
 // models
 const fds = require('./routes/fds');
 const reservations = require('./routes/reservations');
+const deliveries = require('./routes/deliveries');
+const persons = require('./routes/persons');
+const histories = require('./routes/histories');
 
 const app = express();
 
@@ -29,6 +32,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/fds', fds);
 app.use('/reservations', reservations);
+app.use('/deliveries', deliveries);
+app.use('/persons', persons);
+app.use('/histories', histories);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

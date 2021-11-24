@@ -1,7 +1,28 @@
 const FD = require("../models/fds");
 
+// get FDs from DB
+const getFDs = async (req, res) => {
+    try {
+        const fds = await FD.find();
+        res.status(200).json({success: true, data: fds});
+    } catch (error) {
+        res.status(409).json({success: false, data: [], error: error});
+    }
+}
+
+//get FDs from DB with name
+const getFD = async (req, res) => {
+    const fdname = req.params.fdname;
+    try {
+        const fds = await FD.find({phone_number: fdname});
+        res.status(200).json({success: true, data: fds});
+    } catch (error) {
+        res.status(409).json({success: false, data: [], error: error});
+    }
+}
+
 // add FD to DB
-const postFDs = async (req, res) => {
+const postFD = async (req, res) => {
     try {
         const {name} = req.body;
         const {release_date} = req.body;
@@ -29,5 +50,7 @@ const postFDs = async (req, res) => {
 };
 
 module.exports = {
-    postFDs
+    postFD,
+    getFDs,
+    getFD
 }
