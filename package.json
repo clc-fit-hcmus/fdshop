@@ -2,10 +2,6 @@
   "name": "fdshop",
   "version": "0.0.0",
   "private": true,
-  "engines": {
-    "node": "14.18.0",
-    "npm": "6.4.15"
-  },
   "events": {
     "restart": "kill-port 3000",
     "crash": "kill-port 3000"
