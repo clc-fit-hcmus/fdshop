@@ -8,6 +8,11 @@ const mongoose = require("mongoose");
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const menuRouter = require('./routes/menu');
+const detailRouter = require('./routes/detail');
+const signInRouter = require('./routes/signIn');
+const signUpRouter = require('./routes/signUp');
+const registerRouter = require('./routes/register');
 
 // models
 const fds = require('./routes/fds');
@@ -31,6 +36,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/menu', menuRouter);
+app.use('/detail', detailRouter);
+app.use('/in', signInRouter);
+app.use('/up', signUpRouter);
+app.use('/register', registerRouter);
+
+// data
 app.use('/fds', fds);
 app.use('/reservations', reservations);
 app.use('/deliveries', deliveries);

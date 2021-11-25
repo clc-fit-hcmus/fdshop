@@ -14,7 +14,7 @@ const getPersons = async (req, res) => {
 const getPerson = async (req, res) => {
     const phone = req.params.phone;
     try {
-        const person = await Person.find({phone_number: phone});
+        const person = await Person.find({"info.phone_number": phone});
         res.status(200).json({success: true, data: person});
     } catch (error) {
         res.status(409).json({success: false, data: [], error: error});

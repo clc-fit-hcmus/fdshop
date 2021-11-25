@@ -378,7 +378,7 @@ h1, h2, h3, h4, h5, h6, figure {
 .fh5co-cover .display-tc .btn {
   padding: 10px 30px;
   color: #fff;
-  border: none !important;
+  border: none;
   font-size: 18px;
 }
 @media screen and (max-width: 768px) {
@@ -1574,10 +1574,14 @@ h1, h2, h3, h4, h5, h6, figure {
   outline: none !important;
 }
 
+#btn-force-with-border {
+  border: 2px solid #ea272d !important;
+}
+
 .btn-primary {
   background: #ea272d;
   color: #fff;
-  border: 2px solid #ea272d;
+  border: 2px solid #ea272d !important;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   background: #ec3e44 !important;
