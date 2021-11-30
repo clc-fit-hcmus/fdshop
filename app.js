@@ -3,8 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const dotenv = require("dotenv/config");
-const mongoose = require("mongoose");
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -64,19 +62,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-// mongoDB connection
-mongoose.connect(process.env.DB_CONNECTION, (error) => {
-  if (!error) {
-    console.log("Connection to DB established")
-  } else {
-    console.log("Error connecting to DB")
-  }
-});
-
-app.listen(process.env.PORT || 5000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
 
 module.exports = app;
