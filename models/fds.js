@@ -17,6 +17,12 @@ const FD = new mongoose.Schema({
         default: false
     },
 
+    is_drink: {
+        type: Boolean,
+        require: true,
+        default: false
+    },
+
     price: {
         type: Number,
         required: true
@@ -34,16 +40,15 @@ const FD = new mongoose.Schema({
         default: null
     },
 
-    image: {
-        data: {
-            type: Buffer,
-            required: true
-        },
-        content_type: {
-            type: String,
-            required: true
-        }
+    avatar: {
+        type: String,
+        required: true
+    },
+
+    cloudinary_id: {
+        type: String,
+        required: true
     }
 });
 
-module.exports = mongoose.model("FoodsAndDrinks", FD);
+module.exports = mongoose.model("FoodsAndDrinks", FD, "foodsanddrinks");

@@ -1,5 +1,5 @@
 const express = require('express');
-const {postFeedback, getFeedbacks, getFeedback} = require("../controllers/feedbacks");
+const {postFeedback, getFeedbacks, getFeedback} = require("./feedbacksController");
 
 const router = express.Router();
 

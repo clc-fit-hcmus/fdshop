@@ -1,5 +1,5 @@
 const express = require('express');
-const {postFD, getFDs, getFD} = require("../controllers/fds");
+const {postFD, getFDs, getFD} = require("./fdsController");
 
 const router = express.Router();
 

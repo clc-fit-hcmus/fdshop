@@ -1,5 +1,5 @@
 const express = require('express');
-const {postDelivery, getDeliveries, getDelivery} = require("../controllers/deliveries");
+const {postDelivery, getDeliveries, getDelivery} = require("./deliveriesController");
 
 const router = express.Router();
 
