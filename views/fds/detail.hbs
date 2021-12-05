@@ -2,23 +2,23 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 fh5co-heading animate-box">
-                <h2>Testimony</h2>
-                <span style="font-size: 24px; font-style: 20px; color: #fee856;" class="fh5co-price">$22<sup>.50</sup></span>
+                <h2>{{fd.name}}</h2>
+                <span style="font-size: 24px; font-style: 20px; color: #fee856;" class="fh5co-price">${{fd.price}}</span>
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ab debitis sit itaque totam, a maiores nihil, nulla magnam porro minima officiis! Doloribus aliquam voluptates corporis et tempora consequuntur ipsam, itaque, nesciunt similique commodi omnis.</p>
+                        <p>{{fd.description}}</p>
                     </div>
                 </div>
                 <p><a href="#" class="btn btn-primary btn-outline">Order now</a></p>
             </div>
 
             <div class="col-md-5 animate-box img-to-responsive animate-box" data-animate-effect="fadeInLeft">
-                    <img src="images/detail.jpg" width="800" alt="">
+                    <img src={{fd.avatar}} width="800" alt={{fd.cloudinary_id}}>
             </div>
             <div class="col-md-7 animate-box" data-animate-effect="fadeInRight">
                 <blockquote>
-                    <p> &ldquo; Quantum ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ab debitis sit itaque totam, a maiores nihil, nulla magnam porro minima officiis! Doloribus aliquam voluptates corporis et tempora consequuntur ipsam. &rdquo;</p>
-                    <p class="author"><cite>&mdash; Jane Smith</cite></p>
+                    <p> &ldquo; Come for the food, stay for the atmosphere. The first bite will blow your mind. The second will transport you to another dimension. Have it your way!!! &rdquo;</p>
+                    <p class="author"><cite>&mdash; FDSHOP</cite></p>
                 </blockquote>
             </div>
         </div>

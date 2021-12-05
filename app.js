@@ -3,7 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const {engine} = require('express-handlebars');
+var expressHbs =  require('express-handlebars');
+const methodOverride = require('method-override');
 
 const indexRouter = require('./routes');
 
@@ -17,8 +18,34 @@ const feedbacks = require('./components/feedbacks');
 
 const app = express();
 
+const hbs = expressHbs.create({
+  defaultLayout: 'layout', 
+  extname: '.hbs',
+  helpers: {
+    if_even: function(conditional, options) {
+      if((conditional % 2) == 0) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    },
+    times: function(n, block) {
+      var accum = '';
+      for(var i = 1; i < n + 1; ++i)
+          accum += block.fn(i);
+      return accum;
+    },
+    for: function(from, to, incr, block) {
+      var accum = '';
+      for(var i = from; i < to; i += incr)
+          accum += block.fn(i);
+      return accum;
+    }
+  }
+});
+
 // view engine setup
-app.engine('.hbs', engine({defaultLayout: 'layout', extname: '.hbs'}));
+app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
@@ -26,10 +53,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
-app.use('/menu', indexRouter);
-app.use('/detail', indexRouter);
+
+app.use('/', fds);
+app.use('/menu', fds);
+app.use('/detail', fds);
 app.use('/in', indexRouter);
 app.use('/up', indexRouter);
 app.use('/register', indexRouter);

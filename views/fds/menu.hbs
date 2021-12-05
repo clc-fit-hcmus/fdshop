@@ -26,65 +26,57 @@
                     </div>
                 </div>
             </div>
+
+            {{#each fds}}
+
+            <h1>{{gauss}}</h1>
             
+            {{#if_even @index}}
             <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-item-wrap">
                 <div class="fh5co-item animate-box">
-                    <img src="images/menu-1.jpg" class="img-responsive" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
-                    <h3>Bake Potato Pizza</h3>
-                    <span class="fh5co-price">$20<sup>.50</sup></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos nihil cupiditate ut vero alias quaerat inventore molestias vel suscipit explicabo.</p>
-                </div>
-                <div class="fh5co-item animate-box">
-                    <img src="images/gallery_2.jpeg" class="img-responsive" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
-                    <h3>Bake Potato Pizza</h3>
-                    <span class="fh5co-price">$20<sup>.50</sup></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos nihil cupiditate ut vero alias quaerat inventore molestias vel suscipit explicabo.</p>
+                    <a class="a-cover" href="/detail/{{this._id}}">
+                        <img src="{{this.avatar}}" class="img-responsive" alt="{{this.cloudinary_id}}">
+                        <h3>{{this.name}}</h3>
+                    </a>
+                    <span class="fh5co-price">${{this.price}}</span>
+                    <p>{{this.description}}</p>
                 </div>
             </div>
+            {{else}}
             <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-item-wrap">
                 <div class="fh5co-item margin_top animate-box">
-                    <img src="images/menu-2.jpg" class="img-responsive" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
-                    <h3>Salted Fried Chicken</h3>
-                    <span class="fh5co-price">$19<sup>.00</sup></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos nihil cupiditate ut vero alias quaerat inventore molestias vel suscipit explicabo.</p>
-                </div>
-                <div class="fh5co-item animate-box">
-                    <img src="images/gallery_4.jpeg" class="img-responsive" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
-                    <h3>Bake Potato Pizza</h3>
-                    <span class="fh5co-price">$20<sup>.50</sup></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos nihil cupiditate ut vero alias quaerat inventore molestias vel suscipit explicabo.</p>
+                    <a class="a-cover" href="/detail/{{this._id}}">
+                        <img src="{{this.avatar}}" class="img-responsive" alt="{{this.cloudinary_id}}">
+                        <h3>{{this.name}}</h3>
+                    </a>
+                    <span class="fh5co-price">${{this.price}}</span>
+                    <p>{{this.description}}</p>
                 </div>
             </div>
-            <div class="clearfix visible-sm-block visible-xs-block"></div>
-            <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-item-wrap">
-                <div class="fh5co-item animate-box">
-                    <img src="images/menu-3.jpg" class="img-responsive" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
-                    <h3>Italian Sauce Mushroom</h3>
-                    <span class="fh5co-price">$17<sup>.99</sup></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos nihil cupiditate ut vero alias quaerat inventore molestias vel suscipit explicabo.</p>
-                </div>
-                <div class="fh5co-item animate-box">
-                    <img src="images/gallery_6.jpeg" class="img-responsive" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
-                    <h3>Bake Potato Pizza</h3>
-                    <span class="fh5co-price">$20<sup>.50</sup></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos nihil cupiditate ut vero alias quaerat inventore molestias vel suscipit explicabo.</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-item-wrap">
-                <div class="fh5co-item margin_top animate-box">
-                    <img src="images/menu-4.jpg" class="img-responsive" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
-                    <h3>Fried Potato w/ Garlic</h3>
-                    <span class="fh5co-price">$22<sup>.50</sup></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos nihil cupiditate ut vero alias quaerat inventore molestias vel suscipit explicabo.</p>
-                </div>
-                <div class="fh5co-item animate-box">
-                    <img src="images/gallery_8.jpeg" class="img-responsive" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
-                    <h3>Bake Potato Pizza</h3>
-                    <span class="fh5co-price">$20<sup>.50</sup></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos nihil cupiditate ut vero alias quaerat inventore molestias vel suscipit explicabo.</p>
-                </div>
-            </div>
+            {{/if_even}}
+
+            {{/each}}
+
         </div>
+
+        {{#if is_notOne}}
+
+        <div class="pagination">
+            <ul>
+                <li {{#if prev}}{{else}}class="noneDisplay"{{/if}}><a href="/menu?page={{prev}}" class="btn btn-primary btn-outline">&lt;&lt;</a></li>
+
+                {{#times pages}}
+
+                <li><a href="/menu?page={{this}}" class="btn btn-primary btn-outline">{{this}}</a></li>
+
+                {{/times}}
+
+                <li {{#if is_overload}}class="noneDisplay"{{/if}}><a href="/menu?page={{next}}" class="btn btn-primary btn-outline">&gt;&gt;</a></li>
+            </ul>
+        </div>
+        
+        {{/if}}
+
     </div>
 </div>
 

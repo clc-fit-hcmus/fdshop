@@ -1,6 +1,12 @@
 const FD = require("../../models/fds");
 
-const query = (filter = {}) => FD.find(filter);
+const query = (filter = {}) => FD.find(filter).lean();
+
+const queryOne = (filter = {}) => FD.findOne(filter).lean();
+
+const queryFor = (skip, limit) => FD.find().skip(skip).limit(limit).lean();
+
+const count = (filter = {}) => FD.countDocuments(filter);
 
 const save = async (req) => {
     const {name} = req.body;
@@ -30,5 +36,8 @@ const save = async (req) => {
 
 module.exports = {
     query,
+    queryOne,
+    queryFor,
+    count,
     save
 }

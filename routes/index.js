@@ -6,15 +6,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// GET fds pages
-router.get('/detail', function(req, res, next) {
-  res.render('fds/detail');
-});
-
-router.get('/menu', function(req, res, next) {
-  res.render('fds/menu');
-});
-
 // GET signUI pages
 router.get('/register', function(req, res, next) {
   res.render('signUI/register');

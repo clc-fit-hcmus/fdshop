@@ -1910,3 +1910,27 @@ textarea {
 #fh5co-type p {
   color: rgba(255, 255, 255, 0.7);
 }
+
+/* self writter */
+.a-cover:hover {
+  text-decoration: white underline;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.noneDisplay {
+  display: none;
+}
+
+.pagination {
+  width: 100%;
+}
+
+.pagination ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
