@@ -6,8 +6,10 @@
                 <div class="display-t js-fullheight">
                     <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
                         <h1>See <em>Our</em> Menu</h1>
+                        {{#if login}}{{else}}
                         <p style="display: inline-block; margin: 40px 0 0 0;"><a href="/in" style="margin: 12px;" class="btn btn-primary btn-outline">Sign In</a></p>
-                    <p style="display: inline-block; margin: 40px 0 0 0;"><a href="/register" style="background: #ec3e44; margin: 12px;" class="btn btn-primary btn-outline">Sign Up</a></p>
+                        <p style="display: inline-block; margin: 40px 0 0 0;"><a href="/register" style="background: #ec3e44; margin: 12px;" class="btn btn-primary btn-outline">Sign Up</a></p>
+                        {{/if}}
                     </div>
                 </div>
             </div>

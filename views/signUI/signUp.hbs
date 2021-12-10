@@ -11,26 +11,41 @@
             </div>
             
             <div class="col-md-6 col-md-push-6 col-sm-6 col-sm-push-6">
-                <form action="#" id="form-wrap">
+                <form action="/up" method="post" id="form-wrap">
+                    <input type="text" class="form-control noneDisplay" name="name" value="{{body.name}}">
+                    <input type="date" class="form-control noneDisplay" name="date_of_birth" value="{{body.date_of_birth}}">
+                    <input type="text" class="form-control noneDisplay" name="sex" value="{{body.sex}}">
+                    <input type="email" class="form-control noneDisplay" name="email" value="{{body.email}}">
+                    <input type="text" class="form-control noneDisplay" name="phone_number" value="{{body.phone_number}}">
+                    <input type="text" class="form-control noneDisplay" name="address" value="{{body.address}}">
+
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="name">Username</label>
-                            <input type="text" class="form-control" id="name">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" name="username" id="username" required>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="name">Password</label>
-                            <input type="password" class="form-control" id="name">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" required>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="name">Input password again</label>
-                            <input type="password" class="form-control" id="name">
+                            <label for="pre-password">Re-enter Password</label>
+                            <input type="password" class="form-control" name="pre-password" id="pre-password" required>
                         </div>
                     </div>
-                    <div class="row form-group">
+                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+                    {{#if hasErrors}}
+                        {{#each messages}}
+                            <p style="margin-bottom: 20px; margin-top: -10px"><a>* {{this}}</a></p>
+                        {{/each}}
+                    {{/if}}
+                    
+                    <div class="row form-group" style="margin-top: 20px;">
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-primary btn-outline btn-lg" value="Sign up">
                         </div>

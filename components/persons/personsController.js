@@ -1,4 +1,4 @@
-const {query, save} = require("./personsService");
+const {query, queryOne, save} = require("./personsService");
 
 // get Persons from DB
 const getPersons = async (req, res) => {

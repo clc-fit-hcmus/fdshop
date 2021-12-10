@@ -20,6 +20,17 @@
                     <li><a href="/">Reservation</a></li>
                     <li><a href="/">About</a></li>
                     <li><a href="/">Contact</a></li>
+                    {{#if login}}
+
+                    <li class="has-dropdown">
+                        <a href="/aboutUser">Your Acount</a>
+                        <ul class="dropdown">
+                            <li><a href="/aboutUser">Profile</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                        
+                    {{/if}}
                 </ul>
             </div>
         </div>

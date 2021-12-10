@@ -3,8 +3,15 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-var expressHbs =  require('express-handlebars');
+const expressHbs =  require('express-handlebars');
 const methodOverride = require('method-override');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
+const moment = require('moment');
+const validator = require('express-validator');
+const mongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
 
 const indexRouter = require('./routes');
 
@@ -17,6 +24,8 @@ const histories = require('./components/histories');
 const feedbacks = require('./components/feedbacks');
 
 const app = express();
+
+require('./config/passport')
 
 const hbs = expressHbs.create({
   defaultLayout: 'layout', 
@@ -40,6 +49,10 @@ const hbs = expressHbs.create({
       for(var i = from; i < to; i += incr)
           accum += block.fn(i);
       return accum;
+    },
+    dateFormat: function (date, options) {
+      const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
+      return moment(date).format(formatToUse);
     }
   }
 });
@@ -52,17 +65,37 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(validator());
+app.use(session({ 
+  secret: 'fdshop', 
+  resave: false, 
+  saveUninitialized: false,
+  store: new mongoStore({ mongooseConnection: mongoose.connection }),
+  cookie: { maxAge: 180 * 60 * 1000 }
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+
+app.use(function(req, res, next) {
+  res.locals.login = req.isAuthenticated();
+  res.locals.session = req.session;
+  next();
+})
 
 app.use('/', indexRouter);
 
 app.use('/', fds);
 app.use('/menu', fds);
 app.use('/detail', fds);
-app.use('/in', indexRouter);
-app.use('/up', indexRouter);
-app.use('/register', indexRouter);
+
+app.use('/', persons);
+app.use('/in', persons);
+app.use('/up', persons);
+app.use('/register', persons);
+app.use('/aboutUser', persons);
 
 // data
 app.use('/fds', fds);

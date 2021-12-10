@@ -1,0 +1,87 @@
+<div id="fh5co-about" class="fh5co-section" style="margin-top: 80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-pull-2 img-wrap animate-box" data-animate-effect="fadeInLeft">
+                <img src="/images/user.jpg" alt="Free Restaurant Bootstrap Website Template by FreeHTML5.co">
+            </div>
+            <div class="col-md-5 col-md-push-1 animate-box">
+                <div class="section-heading">
+                    <h2>Welcome, {{user.info.name}}</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae neque quisquam at deserunt ab praesentium architecto tempore saepe animi voluptatem molestias, eveniet aut laudantium alias, laboriosam excepturi, et numquam? Atque tempore iure tenetur perspiciatis, aliquam, asperiores aut odio accusamus, unde libero dignissimos quod aliquid neque et illo vero nesciunt. Sunt!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam iure reprehenderit nihil nobis laboriosam beatae assumenda tempore, magni ducimus abentey.</p>
+                    <p><a href="#" class="btn btn-primary btn-outline">Order now</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fh5co-timeline">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0">
+                <ul class="timeline animate-box">
+                    <li class="timeline-heading text-center animate-box">
+                        <div><h3>Your Infomation</h3></div>
+                    </li>
+                    <li class="animate-box timeline-unverted">
+                        <div class="timeline-badge"><i class="icon-genius"></i></div>
+                        <div class="timeline-panel" style="margin-top: 24px">
+                            <div class="timeline-heading">
+                                <h3 class="timeline-title">Date of birth</h3>
+                            
+                            </div>
+                            <div class="timeline-body">
+                                <p>{{dateFormat user.info.date_of_birth format="DD MMMM - YYYY"}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted animate-box">
+                        <div class="timeline-badge"><i class="icon-genius"></i></div>
+                        <div class="timeline-panel" style="margin-top: 24px">
+                            <div class="timeline-heading">
+                                <h3 class="timeline-title">Gender</h3>
+                            </div>
+                            <div class="timeline-body">
+                                <p>{{user.info.sex}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="animate-box timeline-unverted">
+                        <div class="timeline-badge"><i class="icon-genius"></i></div>
+                        <div class="timeline-panel" style="margin-top: 24px">
+                            <div class="timeline-heading">
+                                <h3 class="timeline-title">Email</h3>
+                            </div>
+                            <div class="timeline-body">
+                                <p>{{user.info.email}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="animate-box timeline-inverted">
+                        <div class="timeline-badge"><i class="icon-genius"></i></div>
+                        <div class="timeline-panel" style="margin-top: 24px">
+                            <div class="timeline-heading">
+                                <h3 class="timeline-title">Phone</h3>
+                            </div>
+                            <div class="timeline-body">
+                                <p>{{user.info.phone_number}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="animate-box timeline-unverted">
+                        <div class="timeline-badge"><i class="icon-genius"></i></div>
+                        <div class="timeline-panel" style="margin-top: 24px">
+                            <div class="timeline-heading">
+                                <h3 class="timeline-title">Address</h3>
+                            </div>
+                            <div class="timeline-body">
+                                <p>{{user.info.address}}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

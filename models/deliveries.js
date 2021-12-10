@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const {Detail} = require("../models/detail");
 
 const Delivery = new mongoose.Schema({
     phone_number: {
@@ -7,10 +6,22 @@ const Delivery = new mongoose.Schema({
         required: true
     },
 
-    detail: {
-        type: [Detail],
-        required: true
-    },
+    detail: [{
+        fd_name: {
+            type: String,
+            required: true
+        },
+    
+        quantity: {
+            type: Number,
+            required: true
+        },
+    
+        description: {
+            type: String,
+            default: null
+        }
+    }],
 
     address: {
         type: String,

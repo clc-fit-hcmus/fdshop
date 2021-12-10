@@ -1916,6 +1916,10 @@ textarea {
   text-decoration: white underline;
 }
 
+.a-template:hover {
+  text-decoration: #ea272d underline;
+}
+
 a.disabled {
   pointer-events: none;
   cursor: default;
