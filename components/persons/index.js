@@ -29,7 +29,6 @@ router.use('/', notLoggedIn, function(req, res, next) {
 router.get('/persons', getPersons);
 router.get('/persons/:phone', getPerson);
 router.post('/persons/add', postPerson);
-router.post('/persons/add', updatePerson);
 
 // GET signUI pages
 router.get('/register', function(req, res, next) {
