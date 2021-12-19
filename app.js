@@ -96,6 +96,7 @@ app.use('/in', persons);
 app.use('/up', persons);
 app.use('/register', persons);
 app.use('/aboutUser', persons);
+app.use('/update', persons)
 
 // data
 app.use('/fds', fds);

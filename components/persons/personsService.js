@@ -17,8 +17,22 @@ const save = async (req) => {
     return await newPerson.save();
 };
 
+// update Person's information from DB
+const update = async (req) => {
+    const {login} = req.body;
+    const {info} = req.body;
+
+    const updatePerson = new Person({
+        login: login,
+        info: info
+    });
+
+    return await Person.findOneAndUpdate({"login.username": req.params.username}, {updatePerson}, {upsert: true, new: true})
+};
+
 module.exports = {
     query,
     queryOne,
-    save
+    save,
+    update
 }
