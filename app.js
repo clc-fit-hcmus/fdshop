@@ -10,6 +10,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const moment = require('moment');
 const validator = require('express-validator');
+const csrf = require('csurf');
 const mongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 
@@ -17,6 +18,7 @@ const indexRouter = require('./routes');
 
 // models
 const fds = require('./components/fds');
+const comments = require('./components/comments')
 const reservations = require('./components/reservations');
 const deliveries = require('./components/deliveries');
 const persons = require('./components/persons');
@@ -73,6 +75,15 @@ app.use(session({
   store: new mongoStore({ mongooseConnection: mongoose.connection }),
   cookie: { maxAge: 180 * 60 * 1000 }
 }));
+
+app.use(csrf({ cookie: true }));
+app.use(function (req, res, next) {
+  res.cookie('XSRF-TOKEN', req.csrfToken());
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -96,7 +107,10 @@ app.use('/in', persons);
 app.use('/up', persons);
 app.use('/register', persons);
 app.use('/aboutUser', persons);
-app.use('/update', persons)
+app.use('/update', persons);
+
+app.use('/', comments);
+app.use('/comment', comments);
 
 // data
 app.use('/fds', fds);
