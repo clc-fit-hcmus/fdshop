@@ -2,11 +2,9 @@ const express = require('express');
 const {postPerson, getPersons, getPerson, updatePerson } = require("./personsController");
 const csrf = require('csurf');
 const passport = require('passport');
+const {isLoggedIn, notLoggedIn} = require('../../utils/login');
 
 const router = express.Router();
-
-const csrfProtection = csrf();
-router.use(csrfProtection);
 
 router.get('/update', isLoggedIn, function(req, res, next) {
   res.render('signUI/update');
@@ -37,7 +35,7 @@ router.get('/register', function(req, res, next) {
 
 router.get('/in', function(req, res, next) {
   const messages = req.flash('error');
-  res.render('signUI/signIn', { csrfToken: req.csrfToken(), body: req.query, messages: messages, hasErrors: messages.length > 0 });
+  res.render('signUI/signIn', { body: req.query, messages: messages, hasErrors: messages.length > 0 });
 });
 
 router.post('/in', passport.authenticate('local.signin', {
@@ -48,7 +46,7 @@ router.post('/in', passport.authenticate('local.signin', {
 
 router.get('/up', function(req, res, next) {
   const messages = req.flash('error');
-  res.render('signUI/signUp', { csrfToken: req.csrfToken(), body: req.query, messages: messages, hasErrors: messages.length > 0 });
+  res.render('signUI/signUp', { body: req.query, messages: messages, hasErrors: messages.length > 0 });
 });
 
 router.post('/up', passport.authenticate('local.signup', {
@@ -58,17 +56,3 @@ router.post('/up', passport.authenticate('local.signup', {
 }));
 
 module.exports = router;
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-}
-
-function notLoggedIn(req, res, next) {
-  if (!req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-}
