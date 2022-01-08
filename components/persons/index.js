@@ -7,7 +7,9 @@ const {isLoggedIn, notLoggedIn} = require('../../utils/login');
 const router = express.Router();
 
 router.get('/update', isLoggedIn, function(req, res, next) {
-  res.render('signUI/update');
+  const user = req.user.toJSON();
+  const errorMessages = req.flash('error');
+  res.render('signUI/update', { user, errorMessages: errorMessages, hasErrors: errorMessages.length > 0 });
 });
 
 router.get('/aboutUser', isLoggedIn, function(req, res, next) {
@@ -15,13 +17,15 @@ router.get('/aboutUser', isLoggedIn, function(req, res, next) {
   res.render('users/about', { user });
 });
 
+router.post('/update', isLoggedIn, passport.authenticate('local.update', {
+  successRedirect: '/aboutUser',
+  failureRedirect: '/update',
+  failureFlash: true
+}));
+
 router.get('/logout', isLoggedIn, function(req, res, next) {
   req.logout();
   res.redirect('/');
-})
-
-router.use('/', notLoggedIn, function(req, res, next) {
-  next();
 })
 
 router.get('/persons', getPersons);

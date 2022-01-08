@@ -72,3 +72,41 @@ passport.use('local.signin', new localStrategy({
         return done(null, user);
     })
 }));
+
+passport.use('local.update', new localStrategy({
+    usernameField: 'name',
+    passwordField: 'name',
+    passReqToCallback: true
+}, (req, username, password, done) => {
+    Person.findOne( { $and: [
+        { '_id': { $ne: req.user._id } }, 
+        { 'info.ssn': req.body.ssn }, 
+        {'login.role': 'customer'} ] }, (error, result) => {
+        console.log(result);
+        if (result) {
+            return done(null, false, req.flash('error', 'SSN has already existed!'));
+        }
+
+        if (!/^\d+$/.test(req.body.phone_number)) {
+            return done(null, false, req.flash('error', 'Your phone must contains only digits!'));
+        }
+
+        req.session.passport.user = req.user;
+
+        req.session.passport.user.info.ssn = req.body.ssn;
+        req.session.passport.user.info.citizenship = req.body.citizenship;
+        req.session.passport.user.info.address = req.body.address;
+        req.session.passport.user.info.name = req.body.name;
+        req.session.passport.user.info.date_of_birth = req.body.date_of_birth;
+        req.session.passport.user.info.sex = req.body.sex;
+        req.session.passport.user.info.phone_number = req.body.phone_number;
+
+        Person.findByIdAndUpdate(req.user.id, req.session.passport.user,
+            (err, user) => {
+                if(err){
+                    return done(null, false, req.flash('error', 'Something went wrong!'));
+                }
+                return done(null, user);
+            });
+    })
+}));
