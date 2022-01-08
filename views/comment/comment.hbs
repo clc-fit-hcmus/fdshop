@@ -1,0 +1,60 @@
+<div id="fh5co-contact" class="fh5co-section animate-box" style="margin-top: 80px;">
+    <div class="container">
+        <div class="row animate-box">
+            <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                <h2>Leave your comment</h2>
+                <p>Want to share your opinion about your experience?</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <form action="/comment" method="post" id="form-wrap">
+                    {{#if login}}
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="name">Share your experience, {{user.info.name}}</label>
+                        </div>
+                    </div>
+
+                    <input type="text" class="hidden" name="name" value="{{user.info.name}}">
+
+                    {{else}}
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label>Share your experience</label>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="name">Your Name</label>
+                            <input type="text" class="form-control" name="name" id="name" required>
+                        </div>
+                    </div>
+
+                    {{/if}}
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="content">Your Message</label>
+                            <textarea name="content" id="content" cols="30" rows="10" class="form-control" required></textarea>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-primary btn-outline btn-lg" value="Send">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
