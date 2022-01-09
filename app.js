@@ -90,8 +90,8 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
-app.use(function(req, res, next) {
-  res.locals.login = req.isAuthenticated();
+app.use(async function(req, res, next) {
+  res.locals.login = await req.isAuthenticated();
   res.locals.session = req.session;
   next();
 })

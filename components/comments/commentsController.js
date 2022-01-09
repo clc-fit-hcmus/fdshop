@@ -10,6 +10,7 @@ const getComments = async (req, res, next) => {
         const comments = await queryFor((perPage * page) - perPage, perPage);
 
         res.render('comment/comment', {
+            user: req.user.toJSON(),
             comments,
             current: page,
             is_overload: page >= maxPage,
@@ -28,7 +29,7 @@ const getComments = async (req, res, next) => {
 const postComment = async (req, res) => {
     try {
         const savedComment = await save(req);
-        res.redirect('/comment/comment');
+        res.redirect('/comment');
     } catch (error) {
         console.log(error)
         res.status(409).json({success: false, data: [], error: error});
