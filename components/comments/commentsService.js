@@ -2,6 +2,7 @@ const Comment = require("../../models/comments");
 
 const query = (filter = {}) => Comment.find(filter);
 const queryFor = (skip, limit) => Comment.find().skip(skip).limit(limit).lean();
+const querySortFor = (skip, limit, sort = {}) => Comment.find().sort(sort).skip(skip).limit(limit).lean();
 const count = (filter = {}) => Comment.countDocuments(filter);
 
 // add Comment to DB
@@ -21,5 +22,6 @@ module.exports = {
     queryFor,
     query,
     save,
-    count
+    count,
+    querySortFor
 }

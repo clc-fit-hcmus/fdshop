@@ -1938,3 +1938,8 @@ a.disabled {
   display: flex;
   justify-content: center;
 }
+
+.btn-active {
+  background-color: #ea272d !important;
+  color: white;
+}

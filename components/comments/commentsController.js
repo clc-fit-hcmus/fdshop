@@ -1,16 +1,16 @@
-const {queryFor, query, save, count} = require("./commentsService");
+const {queryFor, querySortFor, save, count} = require("./commentsService");
 
 // get Comments from DB
 const getComments = async (req, res, next) => {
     try {
-        const perPage = 8;
+        const perPage = 3;
         const maxPage = Math.ceil((await count()) / perPage);
         const page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
         
-        const comments = await queryFor((perPage * page) - perPage, perPage);
+        const comments = await querySortFor((perPage * page) - perPage, perPage, { when: -1 });
 
         res.render('comment/comment', {
-            user: req.user.toJSON(),
+            user: req.user ? req.user.toJSON() : null,
             comments,
             current: page,
             is_overload: page >= maxPage,
