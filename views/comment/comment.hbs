@@ -9,44 +9,41 @@
 
         <div class="row">
             <div class="col-sm-8">
-                    <div class="container">
-                        <div class="row">
-                            {{#each comments}}
+                <div class="row">
+                    {{#each comments}}
 
-                            <div class="col-sm-8">
-                                <div class="animate-box" id="form-wrap" style="border:2px solid rgb(75, 75, 75);">
-                                    <h3 style="color:Orange;">{{this.name}}</h3>
-                                    <h4 style="color:White;">{{this.content}}</h4>
-                                    <div class="text-right"> <span class="text-muted fw-normal fs-10" style="color:rgb(172, 172, 172);">{{dateFormat this.when format="MMMM DD, YYYY - hh:mm A"}}</span> </div>
-                                </div>
-                            </div>
-
-                            {{/each}}
-
+                    <div class="col-sm-12">
+                        <div class="animate-box" id="form-wrap" style="border:2px solid rgb(75, 75, 75);">
+                            <h3 style="color:Orange;">{{this.name}}</h3>
+                            <p style="color:White;">{{this.content}}</p>
+                            <div class="text-right"> <span class="text-muted fw-normal fs-10" style="color:rgb(172, 172, 172);">{{dateFormat this.when format="MMMM DD, YYYY - hh:mm A"}}</span> </div>
                         </div>
-
-                        {{#if is_notOne}}
-
-                        <div class="pagination">
-                            <ul>
-                                <li {{#if prev}}{{else}}class="noneDisplay" {{/if}}><a href="/comment?page={{prev}}"
-                                        class="btn btn-primary btn-outline">&lt;&lt;</a></li>
-
-                                {{#times pages}}
-
-                                <li><a href="/comment?page={{this}}" class="btn btn-primary btn-outline">{{this}}</a>
-                                </li>
-
-                                {{/times}}
-
-                                <li {{#if is_overload}}class="noneDisplay" {{/if}}><a href="/comment?page={{next}}"
-                                        class="btn btn-primary btn-outline">&gt;&gt;</a></li>
-                            </ul>
-                        </div>
-
-                        {{/if}}
-
                     </div>
+
+                    {{/each}}
+
+                </div>
+
+                {{#if is_notOne}}
+
+                <div class="pagination" style="margin-top: 40px;">
+                    <ul>
+                        <li {{#if prev}}{{else}}class="noneDisplay" {{/if}}><a href="/comment?page={{prev}}"
+                                class="btn btn-primary btn-outline">&lt;&lt;</a></li>
+
+                        {{#times pages}}
+
+                        <li><a href="/comment?page={{this}}" class="btn btn-primary btn-outline {{#compare this ../current operator="=="}}btn-active{{/compare}}">{{this}}</a>
+                        </li>
+
+                        {{/times}}
+
+                        <li {{#if is_overload}}class="noneDisplay" {{/if}}><a href="/comment?page={{next}}"
+                                class="btn btn-primary btn-outline">&gt;&gt;</a></li>
+                    </ul>
+                </div>
+
+                {{/if}}
             </div>
             <div class="col-sm-4">
                 <form action="/comment" method="post" id="form-wrap">

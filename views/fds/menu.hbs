@@ -30,8 +30,6 @@
             </div>
 
             {{#each fds}}
-
-            <h1>{{gauss}}</h1>
             
             {{#if_even @index}}
             <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-item-wrap">
@@ -63,21 +61,24 @@
 
         {{#if is_notOne}}
 
-        <div class="pagination">
-            <ul>
-                <li {{#if prev}}{{else}}class="noneDisplay"{{/if}}><a href="/menu?page={{prev}}" class="btn btn-primary btn-outline">&lt;&lt;</a></li>
+            <div class="pagination" style="margin-top: 40px;">
+                <ul>
+                    <li {{#if prev}}{{else}}class="noneDisplay" {{/if}}><a href="/menu?page={{prev}}"
+                            class="btn btn-primary btn-outline">&lt;&lt;</a></li>
 
-                {{#times pages}}
+                    {{#times pages}}
 
-                <li><a href="/menu?page={{this}}" class="btn btn-primary btn-outline">{{this}}</a></li>
+                    <li><a href="/menu?page={{this}}" class="btn btn-primary btn-outline {{#compare this ../current operator="=="}}btn-active{{/compare}}">{{this}}</a>
+                    </li>
 
-                {{/times}}
+                    {{/times}}
 
-                <li {{#if is_overload}}class="noneDisplay"{{/if}}><a href="/menu?page={{next}}" class="btn btn-primary btn-outline">&gt;&gt;</a></li>
-            </ul>
-        </div>
-        
-        {{/if}}
+                    <li {{#if is_overload}}class="noneDisplay" {{/if}}><a href="/menu?page={{next}}"
+                            class="btn btn-primary btn-outline">&gt;&gt;</a></li>
+                </ul>
+            </div>
+
+            {{/if}}
 
     </div>
 </div>

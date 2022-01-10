@@ -9,6 +9,16 @@ const getFDs = async (req, res) => {
         res.status(409).json({success: false, data: [], error: error});
     }
 };
+// get FDs from DB
+const getBestList = async (req, res) => {
+    try {
+        const fds = await query({ is_best: true });
+        const fourth = await queryFor(0, 4);
+        res.render('index', { fds, fourth });
+    } catch (error) {
+        res.status(409).json({success: false, data: [], error: error});
+    }
+};
 
 //get FDs from DB with name
 const getFD = async (req, res) => {
@@ -67,5 +77,6 @@ module.exports = {
     getFDs,
     getFD,
     getList,
-    getDetail
+    getDetail,
+    getBestList
 }
