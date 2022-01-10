@@ -200,6 +200,9 @@ app.use('/', fds);
 app.use('/menu', fds);
 app.use('/detail', fds);
 
+app.use('/', reservations);
+app.use('/reservation', reservations);
+
 app.use('/', persons);
 app.use('/in', persons);
 app.use('/up', persons);

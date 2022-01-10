@@ -38,8 +38,8 @@ router.get('/register', function(req, res, next) {
 });
 
 router.get('/in', function(req, res, next) {
-  const messages = req.flash('error');
-  res.render('signUI/signIn', { body: req.query, messages: messages, hasErrors: messages.length > 0 });
+  const errorMessages = req.flash('error');
+  res.render('signUI/signIn', { body: req.query, errorMessages: errorMessages, hasErrors: errorMessages.length > 0 });
 });
 
 router.post('/in', passport.authenticate('local.signin', {

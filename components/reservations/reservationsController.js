@@ -24,8 +24,8 @@ const getReservation = async (req, res) => {
 // add Reservation to DB
 const postReservation = async (req, res) => {
     try {
-        const savedReservation = await save(req);
-        res.status(201).json({success: true, data: savedReservation});
+        await save(req);
+        res.redirect("/reservation");
     } catch (error) {
         res.status(409).json({success: false, data: [], error: error});
     }
