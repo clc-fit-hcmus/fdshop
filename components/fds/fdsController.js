@@ -1,4 +1,4 @@
-const {query, save, queryOne, queryFor, count} = require("./fdsService");
+const {query, save, queryOne, queryFor, queryForFilter, count} = require("./fdsService");
 
 // get FDs from DB
 const getFDs = async (req, res) => {
@@ -42,11 +42,28 @@ const postFD = async (req, res) => {
 
 const getList = async (req, res) => {
     try {
+        let curStatus = '';
         const perPage = 8;
-        const maxPage = Math.ceil((await count()) / perPage);
-        const page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
+        let maxPage = null;
+        let fds = null;
+        const is_drink = req.query.is_drink == 'true';
+        let page = 0;
+        if (req.query.is_drink == 'true') {
+            curStatus = '&is_drink=true';
+            maxPage = Math.ceil((await count({ is_drink: true })) / perPage);
+            page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
+            fds = await queryForFilter({ is_drink: true }, (perPage * page) - perPage, perPage);
+        } else if (req.query.is_drink == 'false') {
+            curStatus = '&is_drink=false';
+            maxPage = Math.ceil((await count({ is_drink: false })) / perPage);
+            page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
+            fds = await queryForFilter({ is_drink: false }, (perPage * page) - perPage, perPage);
+        } else {
+            maxPage = Math.ceil((await count()) / perPage);
+            page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
+            fds = await queryFor((perPage * page) - perPage, perPage);
+        }
         
-        const fds = await queryFor((perPage * page) - perPage, perPage);
 
         res.render('fds/menu', {
             fds,
@@ -55,9 +72,12 @@ const getList = async (req, res) => {
             is_notOne: maxPage > 1,
             pages: maxPage,
             next: parseInt(page) + 1,
-            prev: (c = parseInt(page) - 1) ? c : 0
+            prev: (c = parseInt(page) - 1) ? c : 0,
+            is_drink: is_drink,
+            curStatus: curStatus
           });
     } catch (error) {
+        console.log(error);
         res.status(409).json({success: false, data: [], error: error});
     }
 };
@@ -78,5 +98,5 @@ module.exports = {
     getFD,
     getList,
     getDetail,
-    getBestList
+    getBestList,
 }

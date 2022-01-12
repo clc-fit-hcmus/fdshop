@@ -6,6 +6,8 @@ const queryOne = (filter = {}) => FD.findOne(filter).lean();
 
 const queryFor = (skip, limit) => FD.find().skip(skip).limit(limit).lean();
 
+const queryForFilter = (filter = {}, skip, limit) => FD.find(filter).skip(skip).limit(limit).lean();
+
 const count = (filter = {}) => FD.countDocuments(filter);
 
 const save = async (req) => {
@@ -38,6 +40,7 @@ module.exports = {
     query,
     queryOne,
     queryFor,
+    queryForFilter,
     count,
     save
 }
