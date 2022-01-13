@@ -10,12 +10,12 @@ const save = async (req) => {
     }
 
     const {phone_number} = req.body;
-    const {peoples} = req.body;
+    const {people} = req.body;
     const {when} = req.body;
 
     const newReservation = new Reservation({
         phone_number: phone_number,
-        peoples: peoples,
+        people: people,
         when: when
     });
 

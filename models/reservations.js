@@ -6,7 +6,7 @@ const Reservation = new mongoose.Schema({
         required: true
     },
 
-    peoples: {
+    people: {
         type: Number,
         required: true,
         default: 1
@@ -15,6 +15,16 @@ const Reservation = new mongoose.Schema({
     when: {
         type: Date,
         required: true
+    },
+
+    accept: {
+        type: Number,
+        default: 0
+    },
+
+    table: {
+        type: String,
+        default: null
     }
 });
 
