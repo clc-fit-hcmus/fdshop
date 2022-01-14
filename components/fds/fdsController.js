@@ -48,20 +48,22 @@ const getList = async (req, res) => {
         let maxPage = null;
         let fds = null;
         let page = 0;
+        let char = "";
+        if (req.query.search) char = req.query.search;
         if (req.query.is_drink == 'true') {
             is_drink = "&is_drink=true";
-            maxPage = Math.ceil((await count({ is_drink: true })) / perPage);
+            maxPage = Math.ceil((await count({is_drink: true, name: {$regex: char, $options: 'i'}})) / perPage);
             page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
-            fds = await queryForFilter({ is_drink: true }, (perPage * page) - perPage, perPage).sort(req.query.sort);
+            fds = await queryForFilter({is_drink: false, name: {$regex: char, $options: 'i'}}, (perPage * page) - perPage, perPage).sort(req.query.sort);
         } else if (req.query.is_drink == 'false') {
             is_drink = "&is_drink=false";
-            maxPage = Math.ceil((await count({ is_drink: false })) / perPage);
+            maxPage = Math.ceil((await count({is_drink: false, name: {$regex: char, $options: 'i'}})) / perPage);
             page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
-            fds = await queryForFilter({ is_drink: false }, (perPage * page) - perPage, perPage).sort(req.query.sort);
+            fds = await queryForFilter({is_drink: false, name: {$regex: char, $options: 'i'}}, (perPage * page) - perPage, perPage).sort(req.query.sort);
         } else {
-            maxPage = Math.ceil((await count()) / perPage);
+            maxPage = Math.ceil((await count({name: {$regex: char, $options: 'i'}})) / perPage);
             page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
-            fds = await queryFor((perPage * page) - perPage, perPage).sort(req.query.sort);
+            fds = await queryForFilter({name: {$regex: char, $options: 'i'}}, (perPage * page) - perPage, perPage).sort(req.query.sort);
         }
         if(req.query.sort == "price") {sort="&sort=price"} else if (req.query.sort == "-price") {sort="&sort=-price"}
 
@@ -74,7 +76,8 @@ const getList = async (req, res) => {
             next: parseInt(page) + 1,
             prev: (c = parseInt(page) - 1) ? c : 0,
             is_drink: is_drink,
-            sort: sort
+            sort: sort,
+            search: req.query.search ? "&search=" + char : null
           });
     } catch (error) {
         console.log(error);
@@ -86,8 +89,26 @@ const getDetail = async (req, res) => {
     try {
         const id = req.params.id;
         const fd = await queryOne({ _id: id });
-        res.render('fds/detail', { fd });
+        let min = null;
+        let index = null;
+        let temp = await query().sort("price");
+        for (var i = 0; i < temp.length; i++) {
+            if (temp[i].name == fd.name) index = i;
+        }
+        if (index - 2 >= 0) {
+            min = index - 2;
+        }
+        if (index + 2 > temp.length) {
+            min = index - 3 - (index + 2 - temp.length);
+        }
+        let fds = await query().sort("price").skip(min).limit(5);
+        for (var i = 0; i < fds.length; i++) {
+            if (fds[i].name == fd.name) index = i;
+        }
+        fds.splice(index, 1);
+        res.render('fds/detail', { fd, fds });
     } catch (error) {
+        console.log(error);
         res.status(409).json({success: false, data: [], error: error});
     }
 };

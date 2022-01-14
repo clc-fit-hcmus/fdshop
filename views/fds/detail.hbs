@@ -22,5 +22,18 @@
                 </blockquote>
             </div>
         </div>
+        <div id="fh5co-featured-menu" class="fh5co-section">
+            {{#each fds}}
+            <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-item-wrap">
+                <div class="fh5co-item animate-box">
+                    <a class="a-cover" href="/detail/{{this._id}}">
+                        <img src="{{this.avatar}}" class="img-responsive" alt="{{this.cloudinary_id}}">
+                        <h3>{{this.name}}</h3>
+                    </a>
+                    <span class="fh5co-price">${{this.price}}</span>
+                </div>
+            </div>
+            {{/each}}
+        </div>
     </div>
 </div>
