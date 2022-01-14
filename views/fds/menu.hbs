@@ -24,7 +24,12 @@
 <div id="fh5co-featured-menu" class="fh5co-section">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 fh5co-heading animate-box">
+            <div class="fh5co-heading animate-box">
+                <form action="/menu" method="get">
+                <div class="form-group has-search animate-box">
+                    <input type="text" class="form-control" placeholder="Search" name="search">
+                </div>
+                </form>
                 <h2>Our Delicous Menu</h2>
                 <div class="row">
                     <div class="col-md-6">
@@ -36,9 +41,9 @@
                 </div>
                 <a href="/menu?is_drink=false" class="btn btn-primary btn-outline {{#compare is_drink "&is_drink=false"}}btn-active{{/compare}}">Food</a>
                 <a href="/menu?is_drink=true" class="btn btn-primary btn-outline {{#compare is_drink "&is_drink=true"}}btn-active{{/compare}}">Drink</a>
-                
-                <a href="/menu?sort=price{{is_drink}}"><i class="icon-arrow-up22"></i></a>
-                <a href="/menu?sort=-price{{is_drink}}"><i class="icon-arrow-down22"></i></a>
+
+                <a href="/menu?sort=price{{search}}{{is_drink}}"><i class="icon-arrow-up22"></i></a>
+                <a href="/menu?sort=-price{{search}}{{is_drink}}"><i class="icon-arrow-down22"></i></a>
             </div>
 
 
@@ -76,18 +81,20 @@
 
         <div class="pagination" style="margin-top: 40px;">
             <ul>
-                <li {{#if prev}}{{else}}class="noneDisplay" {{/if}}><a href="/menu?page={{prev}}{{sort}}{{is_drink}}"
+                <li {{#if prev}}{{else}}class="noneDisplay" {{/if}}><a
+                        href="/menu?page={{prev}}{{sort}}{{search}}{{is_drink}}"
                         class="btn btn-primary btn-outline">&lt;&lt;</a></li>
 
                 {{#times pages}}
 
-                <li><a href="/menu?page={{this}}{{../sort}}{{../is_drink}}"
+                <li><a href="/menu?page={{this}}{{../sort}}{{../search}}{{../is_drink}}"
                         class="btn btn-primary btn-outline {{#compare this ../current operator="=="}}btn-active{{/compare}}">{{this}}</a>
                 </li>
 
                 {{/times}}
 
-                <li {{#if is_overload}}class="noneDisplay" {{/if}}><a href="/menu?page={{next}}{{sort}}{{is_drink}}"
+                <li {{#if is_overload}}class="noneDisplay" {{/if}}><a
+                        href="/menu?page={{next}}{{sort}}{{search}}{{is_drink}}"
                         class="btn btn-primary btn-outline">&gt;&gt;</a></li>
             </ul>
         </div>
