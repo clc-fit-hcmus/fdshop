@@ -1,4 +1,5 @@
-<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image: url(images/menu.jpg);" data-stellar-background-ratio="0.5">
+<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner"
+    style="background-image: url(images/menu.jpg);" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -33,9 +34,13 @@
                             perspiciatis, voluptatum repellat.</p>
                     </div>
                 </div>
-                <a href="/menu?is_drink=false" class="btn btn-primary btn-outline">Food</a>
-                <a href="/menu?is_drink=true" class="btn btn-primary btn-outline">Drink</a>
+                <a href="/menu?is_drink=false" class="btn btn-primary btn-outline {{#compare is_drink "&is_drink=false"}}btn-active{{/compare}}">Food</a>
+                <a href="/menu?is_drink=true" class="btn btn-primary btn-outline {{#compare is_drink "&is_drink=true"}}btn-active{{/compare}}">Drink</a>
+                
+                <a href="/menu?sort=price{{is_drink}}"><i class="icon-arrow-up22"></i></a>
+                <a href="/menu?sort=-price{{is_drink}}"><i class="icon-arrow-down22"></i></a>
             </div>
+
 
             {{#each fds}}
 
@@ -69,22 +74,20 @@
 
         {{#if is_notOne}}
 
-        <h1>TEST {{next}}{{curStatus}}</h1>
-
         <div class="pagination" style="margin-top: 40px;">
             <ul>
-                <li {{#if prev}}{{else}}class="noneDisplay" {{/if}}><a href="/menu?page={{prev}}{{curStatus}}"
+                <li {{#if prev}}{{else}}class="noneDisplay" {{/if}}><a href="/menu?page={{prev}}{{sort}}{{is_drink}}"
                         class="btn btn-primary btn-outline">&lt;&lt;</a></li>
 
                 {{#times pages}}
 
-                <li><a href="/menu?page={{this}}{{../curStatus}}"
+                <li><a href="/menu?page={{this}}{{../sort}}{{../is_drink}}"
                         class="btn btn-primary btn-outline {{#compare this ../current operator="=="}}btn-active{{/compare}}">{{this}}</a>
                 </li>
 
                 {{/times}}
 
-                <li {{#if is_overload}}class="noneDisplay" {{/if}}><a href="/menu?page={{next}}{{curStatus}}"
+                <li {{#if is_overload}}class="noneDisplay" {{/if}}><a href="/menu?page={{next}}{{sort}}{{is_drink}}"
                         class="btn btn-primary btn-outline">&gt;&gt;</a></li>
             </ul>
         </div>

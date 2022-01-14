@@ -42,28 +42,28 @@ const postFD = async (req, res) => {
 
 const getList = async (req, res) => {
     try {
-        let curStatus = '';
-        const perPage = 8;
+        let is_drink = "";
+        let sort = "";
+        const perPage = 4;
         let maxPage = null;
         let fds = null;
-        const is_drink = req.query.is_drink == 'true';
         let page = 0;
         if (req.query.is_drink == 'true') {
-            curStatus = '&is_drink=true';
+            is_drink = "&is_drink=true";
             maxPage = Math.ceil((await count({ is_drink: true })) / perPage);
             page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
-            fds = await queryForFilter({ is_drink: true }, (perPage * page) - perPage, perPage);
+            fds = await queryForFilter({ is_drink: true }, (perPage * page) - perPage, perPage).sort(req.query.sort);
         } else if (req.query.is_drink == 'false') {
-            curStatus = '&is_drink=false';
+            is_drink = "&is_drink=false";
             maxPage = Math.ceil((await count({ is_drink: false })) / perPage);
             page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
-            fds = await queryForFilter({ is_drink: false }, (perPage * page) - perPage, perPage);
+            fds = await queryForFilter({ is_drink: false }, (perPage * page) - perPage, perPage).sort(req.query.sort);
         } else {
             maxPage = Math.ceil((await count()) / perPage);
             page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
-            fds = await queryFor((perPage * page) - perPage, perPage);
+            fds = await queryFor((perPage * page) - perPage, perPage).sort(req.query.sort);
         }
-        
+        if(req.query.sort == "price") {sort="&sort=price"} else if (req.query.sort == "-price") {sort="&sort=-price"}
 
         res.render('fds/menu', {
             fds,
@@ -74,7 +74,7 @@ const getList = async (req, res) => {
             next: parseInt(page) + 1,
             prev: (c = parseInt(page) - 1) ? c : 0,
             is_drink: is_drink,
-            curStatus: curStatus
+            sort: sort
           });
     } catch (error) {
         console.log(error);
