@@ -68,6 +68,9 @@ passport.use('local.signin', new localStrategy({
         if (!user.validPassword(password, user.login.password)) {
             return done(null, false, req.flash('error', 'Wrong password!'));
         }
+        if (!user.is_active) {
+            return done(null, false, req.flash('error', 'Your account has been locked!'));
+        }
 
         return done(null, user);
     })

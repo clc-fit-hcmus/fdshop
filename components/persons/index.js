@@ -28,6 +28,16 @@ router.get('/logout', isLoggedIn, function(req, res, next) {
   res.redirect('/');
 })
 
+router.get('/in', notLoggedIn, function(req, res, next) {
+  const errorMessages = req.flash('error');
+  res.render('signUI/signIn', { body: req.query, errorMessages: errorMessages, hasErrors: errorMessages.length > 0 });
+});
+
+router.get('/up', notLoggedIn, function(req, res, next) {
+  const messages = req.flash('error');
+  res.render('signUI/signUp', { body: req.query, messages: messages, hasErrors: messages.length > 0 });
+});
+
 router.get('/persons', getPersons);
 router.get('/persons/:phone', getPerson);
 router.post('/persons/add', postPerson);
@@ -37,21 +47,11 @@ router.get('/register', function(req, res, next) {
   res.render('signUI/register');
 });
 
-router.get('/in', function(req, res, next) {
-  const errorMessages = req.flash('error');
-  res.render('signUI/signIn', { body: req.query, errorMessages: errorMessages, hasErrors: errorMessages.length > 0 });
-});
-
 router.post('/in', passport.authenticate('local.signin', {
   successRedirect: '/',
   failureRedirect: '/in',
   failureFlash: true
 }));
-
-router.get('/up', function(req, res, next) {
-  const messages = req.flash('error');
-  res.render('signUI/signUp', { body: req.query, messages: messages, hasErrors: messages.length > 0 });
-});
 
 router.post('/up', passport.authenticate('local.signup', {
   successRedirect: '/aboutUser',

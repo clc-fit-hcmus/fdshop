@@ -13,7 +13,7 @@ const getFDs = async (req, res) => {
 const getBestList = async (req, res) => {
     try {
         const fds = await query({ is_best: true });
-        const fourth = await queryFor(0, 4);
+        const fourth = await queryFor(0, 4).sort('-release_date');
         res.render('index', { fds, fourth });
     } catch (error) {
         res.status(409).json({success: false, data: [], error: error});
@@ -54,7 +54,7 @@ const getList = async (req, res) => {
             is_drink = "&is_drink=true";
             maxPage = Math.ceil((await count({is_drink: true, name: {$regex: char, $options: 'i'}})) / perPage);
             page = ((t = (req.query.page || 1)) <= maxPage) && (t > 0) ? t : 1;
-            fds = await queryForFilter({is_drink: false, name: {$regex: char, $options: 'i'}}, (perPage * page) - perPage, perPage).sort(req.query.sort);
+            fds = await queryForFilter({is_drink: true, name: {$regex: char, $options: 'i'}}, (perPage * page) - perPage, perPage).sort(req.query.sort);
         } else if (req.query.is_drink == 'false') {
             is_drink = "&is_drink=false";
             maxPage = Math.ceil((await count({is_drink: false, name: {$regex: char, $options: 'i'}})) / perPage);
